@@ -1,0 +1,101 @@
+.header {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(#9097a0, #545E68);
+    padding: 5px 25px 0 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    .header__wrapper-logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .header__logo {
+            width: auto;
+            height: auto;
+            padding: 5px 10px;
+            border-radius: 10px;
+            background: linear-gradient(rgb(245, 160, 160), red);
+            font-size: 30px;
+            color: #fff;
+    
+        }
+    
+        .header__day {
+            font-size: 30px;
+            color: #fff;
+
+        }
+
+    }
+
+    .header__nav {
+        width: 100%;
+        height: 40px;
+        background-color: #48525A;
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .nav__list {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+
+            .nav__item {
+                
+                .button-create {
+                    width: auto;
+                    height: 100%;
+                    background: linear-gradient(#7de07d, #5bb85b);
+                    border: none;
+                    color: #fff;
+                    padding: 0 10px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: linear-gradient(#67ce67, #3a963a);
+
+                    }
+
+                }
+
+                .button-list {
+                    width: auto;
+                    height: 100%;
+                    background-color: #48525A;
+                    border: none;
+                    color: #fff;
+                    padding: 0 10px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #353b41;
+                    }
+
+                }
+
+            }
+
+        }
+
+        .header__input {
+            width: 300px;
+            height: 100%;
+            background-color: #353a3f;
+            border: none;
+            padding: 0 10px;
+            
+            &:focus {
+                outline: none;
+            }
+
+        }
+
+    }
+
+}

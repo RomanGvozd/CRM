@@ -1,0 +1,90 @@
+.list-children-none {
+    width: 100%;
+    height: auto;
+    padding: 25px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        font-size: 30px;
+        border: 1px solid #c9c9c9;
+        background: linear-gradient(#f6f6f6, #d7d7d7);
+        padding: 25px 100px;
+        color: #949494;
+
+    }
+    
+}
+
+.list-children {
+    width: 100%;
+    height: auto;
+    padding: 25px;
+    background: #fff;
+
+    .list-children__wrapper {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #c9c9c9;
+        background: linear-gradient(#f6f6f6, #d7d7d7);
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .children {
+            width: 600px;
+            height: auto;
+            background: #fff;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+            
+            .children__image {
+                width: 100px;
+                height: 100px;
+                background-image: url(./images/ChildrenImage.svg);
+                background-size: cover;
+                border: 1px solid #c9c9c9;
+
+            }
+
+            .children__image-undefined {
+                width: 100px;
+                height: 100px;
+                background-image: url(./images/ChildrenImage.svg);
+                background-size: cover;
+                border: 1px solid #c9c9c9;
+
+            }
+
+            .children__description {
+                width: 80%;
+                height: 100px;
+                margin-left: 10px;
+                border: 1px solid #c9c9c9;
+                padding: 10px;
+
+            }
+
+            .children__delete {
+                width: 20px;
+                height: 20px;
+                margin-left: 10px;
+                background-image: url(./images/ChildrenDeleteImage.svg);
+                background-size: cover;
+                border: none;
+                background-color: #fff;
+                cursor: pointer;
+
+            }
+
+        }
+
+    }
+
+}

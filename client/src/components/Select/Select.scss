@@ -1,0 +1,81 @@
+.select {
+    position: relative;
+
+    .select__button {
+        cursor: pointer;
+        width: 400px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid #c9c9c9;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        position: relative;
+        color: #666;
+        
+
+        &::after {
+            content: '';
+            position: absolute;
+            background-image: url(./sprites/SelectButtonIcon.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            right: 10px;
+            top: 10px;
+            width: 15px;
+            height: 15px;
+            transform: rotate(180deg);
+            transition: 0.3s;
+
+        }
+
+    }
+
+    .select__button-active {
+        border-bottom: none;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            background-image: url(./sprites/SelectButtonIcon.svg);
+            background-size: contain;
+            background-repeat: no-repeat;
+            right: 10px;
+            top: 10px;
+            width: 15px;
+            height: 15px;
+            transform: rotate(0deg);
+            transition: 0.3s;
+
+        }
+
+    }
+
+    .select__content {
+        width: 400px;
+        height: auto;
+        background: #fff;
+        border: 1px solid #c9c9c9;
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        left: 0;
+        top: 85%;
+        z-index: 10;
+
+        .content__item {
+            cursor: pointer;
+            padding: 10px;
+            color: #666;
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.1);
+
+            }
+
+        }
+
+    }
+
+}

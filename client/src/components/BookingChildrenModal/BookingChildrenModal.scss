@@ -1,0 +1,91 @@
+.background-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    overflow: auto;
+
+    .modal {
+        width: auto;
+        height: auto;
+        padding: 25px;
+        border: 1px solid #c9c9c9;
+        background: linear-gradient(#fff, #d7d7d7);
+        position: relative;
+        overflow: auto;
+
+            .children {
+                width: 700px;
+                height: auto;
+                background: #fff;
+                border: 1px solid #c9c9c9;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px 0;
+                display: flex;
+                
+                .children__image {
+                    width: 100px;
+                    height: 100px;
+                    border: 1px solid #c9c9c9;
+                    background-size: cover;
+    
+                }
+
+                .children__image-undefined {
+                    background-image: url(./sprites/ChildrenImage.svg);
+                }
+    
+                .children__description {
+                    width: 60%;
+                    height: 100px;
+                    margin-left: 10px;
+                    border: 1px solid #c9c9c9;
+                    padding: 10px;
+    
+                }
+
+                .children__booking {
+                    width: 150px;
+                    height: 30px;
+                    background: linear-gradient(#7de07d, #5bb85b);
+                    border: none;
+                    color: #fff;
+                    padding: 0 10px;
+                    cursor: pointer;
+                    margin-left: 10px;
+
+                    &:hover {
+                        background: linear-gradient(#67ce67, #3a963a);
+
+                    }
+
+                }
+                
+            }
+
+        .modal__delete {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            background-image: url(./sprites/ChildrenDeleteImage.svg);
+            background-size: cover;
+            opacity: 0.5;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+
+        }
+
+    }
+
+}

@@ -1,0 +1,96 @@
+.create-children {
+    width: 100%;
+    height: auto;
+    padding: 25px;
+    background: #fff;
+
+    .children__wrapper {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #c9c9c9;
+        background: linear-gradient(#f6f6f6, #d7d7d7);
+        padding: 25px;
+        display: flex;
+        justify-content: space-between;
+
+        .children__form {
+            display: flex;
+            flex-direction: column;
+
+            .children__input {
+                width: 400px;
+                height: 40px;
+                background: #fff;
+                border: 1px solid #c9c9c9;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 10px 0;
+    
+                &:focus {
+                    outline: none;
+    
+                }
+    
+            }
+        
+            .children__button {
+                width: 200px;
+                height: 40px;
+                background: linear-gradient(#7de07d, #5bb85b);
+                border: none;
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                margin: 10px 0;
+                
+                &:hover {
+                    background: linear-gradient(#67ce67, #3a963a);
+    
+                }
+    
+            }
+
+        }
+
+        .children__drag {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #c9c9c9;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .drag__image {
+                width: 100px;
+                height: 100px;
+                background-image: url(./sprites/dragAndDropImage.svg);
+                background-size: cover;
+                opacity: 0.5;
+
+            }
+
+            .drag__text {
+                opacity: 0.5;
+                margin-top: 15px;
+
+            }
+
+        }
+        
+        .children__drag-area {
+            width: 400px;
+            height: 300px;
+            border: 2px dashed #c9c9c9;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;    
+
+        }
+
+    }
+
+}
