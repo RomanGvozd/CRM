@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
   
       const group = new Group({ ...body, showChildren: false })
       await group.save()
-      return res.status(200).send({message: "Group was created"})
+      return res.status(201).send({message: "Group was created"})
 
     } catch (e) {
 
@@ -46,6 +46,7 @@ router.put('/', async (req, res)=> {
     const group = await Group.findOne({_id: groupId})
     group.users.push(children)
     await group.save()
+    return res.status(200).send({message: "User added to group"})
 
   } catch (e) {
     console.log(e)

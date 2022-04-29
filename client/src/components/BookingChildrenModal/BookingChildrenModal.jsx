@@ -1,32 +1,43 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {useSelector} from "react-redux";
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
-import './BookingChildrenModal.scss';
+import './BookingChildrenModal.scss'
 
 function BookingChildrenModal({setIsShow, setBooking, Booking}) {
-    const [childrens, setChildrens] = useState([]);
+    const [childrens, setChildrens] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    const getUsers = async () => {
+        setLoading(true)
+        await axios.get('/api/users')
+        .then(res => {
+            const data = res.data
+            setChildrens(data)
+        })
+        setTimeout(() => {
+            setLoading(false)
+          }, 1000);
+    }
 
     useEffect(() => { 
-        axios.get('/api/users')
-            .then(res => {
-                const data = res.data
-                setChildrens(data)
-            })
+        getUsers()
     },[]);
 
     const handleBooking = (children)=> {
-        // setBooking(true);
-        setIsShow(false);
-        Booking(children);
+        setIsShow(false)
+        Booking(children)
     }
 
     return (
         <div className='background-modal'>
-            <div className='modal'>
+            {loading 
+            ?<div className='modal-loading'>
+                <div className='modal-loading-spiner'></div>
+            </div>
+            :<div className='modal'>
                 {childrens.length === 0 && <p>Вы еще не создали детей</p>}
                     {childrens.map((children, index) => (
-				    <div
+                    <div
                         className='children'
                         key={index}
                     >
@@ -49,10 +60,10 @@ function BookingChildrenModal({setIsShow, setBooking, Booking}) {
                         </div>
                         <button className='children__booking' onClick={()=>handleBooking(children)}>Забронировать</button>
                     </div>
-			        ))}
+                    ))}
                 <button className='modal__delete' onClick={()=>setIsShow(false)}>
                 </button>
-            </div>
+            </div>}
         </div>
     );
 }

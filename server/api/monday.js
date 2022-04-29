@@ -27,15 +27,11 @@ router.put('/booking/', async (req, res)=> {
         const {children, hourTitle} = req.body
         let hour = await MondayHours.findOne({title: hourTitle})
 
-        hour = {
-            ...hour,
-            booking : true,
-            children: {...children}
-        }
+        hour.booking = true
 
-        // await hour.save()
+        await hour.save()
 
-        console.log(hour)
+        return res.status(200).send({message: "User booked"})
 
     } catch (e) {
         console.log(e)
@@ -52,6 +48,8 @@ router.put('/onbooking/', async (req, res)=> {
         hour.booking = false
 
         await hour.save()
+        
+        return res.status(200).send({message: "User unbooked"})
 
     } catch (e) {
         console.log(e)

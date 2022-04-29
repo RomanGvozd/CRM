@@ -1,3 +1,53 @@
+.list-children-loading {
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .list-children-loading-text {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        animation-name: loadingText;
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+
+        @keyframes loadingText {
+            0% {
+                transform: translateY(0);
+            }
+            50%{
+                transform: translateY(-20%);
+            }
+            100% {
+                transform: translateY(0%);
+            }
+        }
+    }
+
+    .list-children-loading-spiner{
+        width: 45px;
+        height: 45px;
+        background-image: url(./sprites/loading.png);
+        background-size: cover;
+        animation-name: loading;
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+
+        @keyframes loading {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+    }
+
+}
+
 .list-children-none {
     width: 100%;
     height: auto;

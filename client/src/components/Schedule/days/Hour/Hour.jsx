@@ -5,7 +5,7 @@ import BookingChildrenModal from '../../../BookingChildrenModal/BookingChildrenM
 
 import './Hour.scss'
 
-function Hour({hour, unbooking, booking}) {
+function Hour({hour, unbooking, booking, loadingHour}) {
 
   const [isSow, setIsShow] = useState(false)
   const [isSowModalChildren, setIsShowModalChildren] = useState(false)
@@ -33,7 +33,6 @@ function Hour({hour, unbooking, booking}) {
             {hour.title}
         </div>
         <div className={hour.booking ? 'hour__body hour__body-booking' : 'hour__body'}>
-
           {hour.booking 
           ? (
             <>
@@ -70,7 +69,8 @@ function Hour({hour, unbooking, booking}) {
             </div>
 
           : <></>}
-        </div>
+      </div>
+
       </div>
 
       {isSowModalChildren && (
