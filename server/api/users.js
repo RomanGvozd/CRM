@@ -13,30 +13,25 @@ router.post("/",
   async (req, res) => {
 
     try{
-
       const { files, body } = req
 
       const image = files.image;
-      const imageName = Date.now() + "" + image.name
-      fs.writeFile("./images/" + imageName, image.data, () => {
-        res.send(body)
-      });
-  
-      const user = new User({ ...body, img: imageName })
+      
+      const user = new User({ ...body })
       await user.save()
-      return res.status(200).send({message: "User was created"})
+      return res.status(201).send({message: "User was created"})
 
     } catch (e) {
-
       console.log(e)
       res.send({message: "Server error"})
-
     }
 
 });
 
-router.get('/', function(req, res) {
-  User.find({}, function(err, foundData) { 
+router.get('/', async(req, res)=> {
+
+  try {
+    User.find({}, function(err, foundData) { 
       if(err) {
           console.log(err);
           return res.status(500).send();
@@ -44,13 +39,18 @@ router.get('/', function(req, res) {
           return res.status(200).send(foundData);
       }
   });
+
+  } catch (error) {
+      console.log(e)
+      res.send({message: "Server error"})
+  }
+
 });
 
-router.delete('/:id', function (req, res) {
+router.delete('/:id', async (req, res)=> {
   const id = req.params.id;
-  const collection = db.get().collection('users');
 
-  collection.deleteOne({ _id: new mongodb.ObjectId(id) }, function (err, results) {
+  User.deleteOne({ _id: id }, function (err, results) {
   });
 
   res.json({ success: id })

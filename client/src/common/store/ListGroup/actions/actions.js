@@ -1,3 +1,5 @@
+import * as api from "../../../api/group.api";
+
 export const ACTION_ADD_GROUP = "ACTION_ADD_GROUP";
 export const ACTION_DELETE_GROUP = "ACTION_DELETE_GROUP";
 export const ACTION_ADD_GROUP_CHILDREN = "ACTION_ADD_GROUP_CHILDREN";
@@ -53,5 +55,15 @@ export function openGroupId(id) {
     return { 
         type: ACTION_OPEN_GROUP_ID, 
         idGroupOpen: id 
+    }
+}
+
+export function addGroup(group) {
+    return function (dispatch) {
+        api.addGroup(group)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
     }
 }

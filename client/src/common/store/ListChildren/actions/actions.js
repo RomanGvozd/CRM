@@ -24,9 +24,9 @@ export function createItem(name, surname, age, selected, files) {
     }
 }
 
-export function addUsers(user) {
+export function addUser(user) {
     return function (dispatch) {
-        api.addUsers(user)
+        api.addUser(user)
             .then(res => {
                 console.log(res);
                 console.log(res.data);

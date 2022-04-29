@@ -1,60 +1,56 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
+import axios from 'axios'
 
-import BookingChildrenModal from '../../../BookingChildrenModal/BookingChildrenModal';
+import BookingChildrenModal from '../../../BookingChildrenModal/BookingChildrenModal'
 
-import './Hour.scss';
+import './Hour.scss'
 
-function Hour({hour}) {
+function Hour({hour, unbooking, booking}) {
 
-  const [isSow, setIsShow] = useState(false);
-  const [isSowModalChildren, setIsShowModalChildren] = useState(false);
-  const [booking, setBooking] = useState(hour.booking);
+  const [isSow, setIsShow] = useState(false)
+  const [isSowModalChildren, setIsShowModalChildren] = useState(false)
 
-  const [name, setName] = useState();
-  const [surname, setSurname] = useState();
-  const [age, setAge] = useState();
-  const [speciality, setSpeciality] = useState();
-  const [files, setFiles] = useState();
+  const [hourTitle, setHourTitle] = useState()
 
-  const Booking = (children)=> {
-    setName(children.name);
-    setSurname(children.surname);
-    setAge(children.age);
-    setSpeciality(children.speciality);
-    setFiles(children.files[0]);
+  const handleUnbooking = (hourTitle)=> {
+    unbooking(hourTitle)
   }
 
-  const handleBooking = ()=> {
-    setIsShow(false);
-    setIsShowModalChildren(true);
-    
+  const Booking = (children)=> {
+    booking(children, hourTitle)
+  }
+
+  const handleBooking = (hourTitle)=> {
+    setIsShow(false)
+    setIsShowModalChildren(true)
+    setHourTitle(hourTitle)
   }
 
   return (
     <>
       <div className='hour'>
         <div className='hour__header'>
-            {hour.name}
+            {hour.title}
         </div>
-        <div className={booking ? 'hour__body hour__body-booking' : 'hour__body'}>
+        <div className={hour.booking ? 'hour__body hour__body-booking' : 'hour__body'}>
 
-          {booking 
+          {hour.booking 
           ? (
             <>
-              <div className='body__button-unbooking' onClick={()=>setBooking(false)}>
+              <div className='body__button-unbooking' onClick={()=>handleUnbooking(hour.title)}>
               </div>
-              <p>{name}</p>
-              <p>{surname}</p>
-              <p>{age} лет</p>
-              <p>{speciality}</p>
-              {files === undefined 
+              <p>{hour.name}</p>
+              <p>{hour.surname}</p>
+              <p>{hour.age} лет</p>
+              <p>{hour.specialization}</p>
+              {true 
               ? <div 
                   className='hour__image hour__image-undefined' 
                 >
                 </div>
               : <div 
                   className='hour__image' 
-                  style={{backgroundImage: `url(${URL.createObjectURL(files)})`}}
+                  // style={{backgroundImage: `url(${URL.createObjectURL(files)})`}}
                 >
                 </div>
               }
@@ -68,7 +64,7 @@ function Hour({hour}) {
           ? <div className='body__wrapper-button'>
               <div>
                 <button className='body__button'>Забронировать группу</button>
-                <button className='body__button' onClick={handleBooking}>Забронировать ребенка</button>
+                <button className='body__button' onClick={()=>handleBooking(hour.title)}>Забронировать ребенка</button>
               </div>
               <button className='body__button-close' onClick={()=>setIsShow(false)}></button>
             </div>
@@ -79,8 +75,7 @@ function Hour({hour}) {
 
       {isSowModalChildren && (
       <BookingChildrenModal 
-      setIsShow={setIsShowModalChildren} 
-      setBooking={setBooking}
+      setIsShow={setIsShowModalChildren}
       Booking={Booking}
       />)}
     </>

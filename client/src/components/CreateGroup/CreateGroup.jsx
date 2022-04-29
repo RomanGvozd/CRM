@@ -5,6 +5,8 @@ import Select from '../Select/Select';
 import ModalAlert from '../ModalAlert/ModalAlert';
 
 import {createItem} from "../../common/store/ListGroup/actions/actions";
+import {addGroup} from "../../common/store/ListGroup/actions/actions";
+
 
 import './CreateGroup.scss';
 
@@ -12,17 +14,24 @@ function CreateGroup() {
   const dispatch = useDispatch();
 
   const [name, setName] = useState();
-  const [selected, setSelected] = useState("Рисование");
+  const [specialization, setSpecialization] = useState("Рисование");
   const [category, setCategory] = useState("4-6 лет");
 
   const [isShow, setIsShow] = useState(false);
-  const options = ["Танцы", "Лепка"];
+  const optionsSpecialization = ["Танцы", "Лепка"];
   const optionsCategory = ["7-9 лет", '10-13 лет', '14-16 лет', '17-18 лет'];
 
   const hadleChangeName = ({target}) => setName(target.value);
 
   const handleCreate = () => {
-    dispatch(createItem(name, category, selected));
+    const values = { name: name, category: category, specialization: specialization };
+    const data = new FormData();
+
+    Object.keys(values).forEach((key) => {
+      data.append(key, values[key]);
+    });
+
+    dispatch(addGroup(data));
     setIsShow(true);
     setInterval(() => setIsShow(false), 1500);
   };
@@ -42,9 +51,9 @@ function CreateGroup() {
             options={optionsCategory}
           />
           <Select
-            selected={selected}
-            setSelected={setSelected}
-            options={options}
+            selected={specialization}
+            setSelected={setSpecialization}
+            options={optionsSpecialization}
           />
 
           <button

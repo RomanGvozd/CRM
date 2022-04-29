@@ -1,13 +1,22 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import {useSelector} from "react-redux";
 
 import './BookingChildrenModal.scss';
 
 function BookingChildrenModal({setIsShow, setBooking, Booking}) {
-    const ListChildren = useSelector((store) => store.ListChildren); 
+    const [childrens, setChildrens] = useState([]);
+
+    useEffect(() => { 
+        axios.get('/api/users')
+            .then(res => {
+                const data = res.data
+                setChildrens(data)
+            })
+    },[]);
 
     const handleBooking = (children)=> {
-        setBooking(true);
+        // setBooking(true);
         setIsShow(false);
         Booking(children);
     }
@@ -15,8 +24,8 @@ function BookingChildrenModal({setIsShow, setBooking, Booking}) {
     return (
         <div className='background-modal'>
             <div className='modal'>
-                {ListChildren.lenght === undefined ? <p>Вы еще не создали детей</p> : <></>}
-                    {ListChildren.map((children, index) => (
+                {childrens.length === 0 && <p>Вы еще не создали детей</p>}
+                    {childrens.map((children, index) => (
 				    <div
                         className='children'
                         key={index}
@@ -36,7 +45,7 @@ function BookingChildrenModal({setIsShow, setBooking, Booking}) {
                             <p>Имя: {children.name}</p>
                             <p>Фамилия: {children.surname}</p>
                             <p>Возраст: {children.age}</p>
-                            <p>Специальность: {children.speciality}</p>
+                            <p>Специальность: {children.specialization}</p>
                         </div>
                         <button className='children__booking' onClick={()=>handleBooking(children)}>Забронировать</button>
                     </div>

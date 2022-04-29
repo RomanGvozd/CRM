@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 import Hour from './Hour/Hour';
 
@@ -8,60 +9,61 @@ import './Day.scss';
 
 function Tuesday() {
 
-    const [hours, setHours] = useState([
-        {
-            name: '8:00',
-            booking: false
-        },
-        {
-            name: '9:00',
-            booking: false
-        },
-        {
-            name: '10:00',
-            booking: false
-        },
-        {
-            name: '11:00',
-            booking: false
-        },
-        {
-            name: '12:00',
-            booking: false
-        },
-        {
-            name: '13:00',
-            booking: false
-        },
-        {
-            name: '14:00',
-            booking: false
-        },
-        {
-            name: '15:00',
-            booking: false
-        },
-        {
-            name: '16:00',
-            booking: false
-        },
-        {
-            name: '17:00',
-            booking: false
-        },
-        {
-            name: '18:00',
-            booking: false
-        },
-        {
-            name: '19:00',
-            booking: false
-        },
-        {
-            name: '20:00',
-            booking: false
-        },
-    ]);
+  const [hours, setHours] = useState([
+    {
+        name: '8:00',
+        booking: false
+    },
+    {
+        name: '9:00',
+        booking: false
+    },
+    {
+        name: '10:00',
+        booking: false
+    },
+    {
+        name: '11:00',
+        booking: false
+    },
+    {
+        name: '12:00',
+        booking: false
+    },
+    {
+        name: '13:00',
+        booking: false
+    },
+    {
+        name: '14:00',
+        booking: false
+    },
+    {
+        name: '15:00',
+        booking: false
+    },
+    {
+        name: '16:00',
+        booking: false
+    },
+    {
+        name: '17:00',
+        booking: false
+    },
+    {
+        name: '18:00',
+        booking: false
+    },
+    {
+        name: '19:00',
+        booking: false
+    },
+    {
+        name: '20:00',
+        booking: false
+    },
+]);
+
 
   return (
     <div className='day'>

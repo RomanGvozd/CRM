@@ -1,61 +1,95 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
-import BookingChildrenModal from '../BookingChildrenModal/BookingChildrenModal';
+import BookingChildrenModal from '../BookingChildrenModal/BookingChildrenModal'
 
-import {addChildren} from "../../common/store/ListGroup/actions/actions";
-import {deleteItem} from "../../common/store/ListGroup/actions/actions";
-import {openGroupId} from "../../common/store/ListGroup/actions/actions";
-import {deleteChildrenGroup} from "../../common/store/ListGroup/actions/actions";
-
-import './ListGroup.scss';
+import './ListGroup.scss'
 
 function ListGroup() {
-  const ListGroup = useSelector((store) => store.ListGroup);
-  const dispatch = useDispatch();
+
+  const [groups, setGroups] = useState([])
 
   const [isSow, setIsShow] = useState(false);
-  const [booking, setBooking] = useState(false);
+  const [groupId, setGroupId] = useState();
   const [idAddChildren, setIdAddChildren] = useState();
-  
-  const handleDeleteGroup = (id) => {
-    dispatch(deleteItem(id));
+
+  useEffect(() => {
+    axios.get('/api/groups')
+      .then(res => {
+        const data = res.data
+        setGroups(data)
+      })
+  },[]);
+
+  const handleDelete = (id) => {
+    axios.delete(`/api/groups/${id}`)
+      .then(res => {
+        console.log(res)
+        console.log(res.data)
+      })
+    axios.get('/api/groups')
+      .then(res => {
+        const data = res.data
+        setGroups(data)
+      })
   };
 
-  const handleDeleteChildren = (childrenId, groupId) => {
-    dispatch(deleteChildrenGroup(childrenId, groupId));
-  };
-
-  const handleOpen = (id) => {
-    dispatch(openGroupId(id));
+  const handleDeleteChildren = (userId, groupId) => {
+    const id = [userId, groupId]
+    axios.delete(`/api/groups/users/${id}`)
+      .then(res => {
+        console.log(res)
+        console.log(res.data)
+      })
+    axios.get('/api/groups')
+      .then(res => {
+        const data = res.data
+        setGroups(data)
+      })
   };
 
   const handleAdd = (id) => {
-    setIsShow(true);
+    setIsShow(true)
     setIdAddChildren(id)
+    setGroupId(id)
   };
 
   const Booking = (children)=> {
-    dispatch(addChildren(idAddChildren, children.id, children.name, children.surname, children.age, children.speciality, children.files[0],));
+    axios.put('/api/groups', {children, groupId})
+    
+    axios.get('/api/groups')
+    .then(res => {
+      const data = res.data
+      setGroups(data)
+    })
+  }
+
+  const handleOpen = (id) => {
+    const updateGroup = groups.map((group)=>{
+      if(group._id === id){
+          return {...group, showChildren: !group.showChildren}
+      }
+      return group
+    })
+    setGroups(updateGroup)
   }
 
   return (
     <>
-    {ListGroup.length <= 0 
+    {groups.length === 0
+
     ?<main className='group-children-none'>
-        <p>
-          Вы не создали группу
-        </p>
+        <p>Вы не создали группу</p>
       </main>
     :<main className='group-children'>
       <div className="group-children__wrapper">
 
-
-        {ListGroup.map((group, index) => (
+        {groups.map((group, index) => (
           <div
             className='group'
             key={index}
           >
+            
             <div className='group__header'>
               <div 
                 className='group__image' 
@@ -64,46 +98,47 @@ function ListGroup() {
               <div className='group__description'>
                 <h2>{group.name}</h2>
                 <p>Категория: {group.category}</p>
-                <p>Специальность: {group.selected}</p>
-                <p>Количество детей: {group.childrens.length}</p>
+                <p>Специальность: {group.specialization}</p>
+                <p>Количество детей: {group.users.length}</p>
               </div>
               <div className='group__button-wrapper'>
-                <button className='group__add-children' onClick={()=>handleAdd(group.id)}>
+                <button className='group__add-children' onClick={()=>handleAdd(group._id)}>
                   + Добавить ребенка
                 </button>
-                <button className='group__button-open' onClick={()=>handleOpen(group.id)}>
+                <button className='group__button-open' onClick={()=>handleOpen(group._id)}>
                   {group.showChildren ? <p>Закрыть группу</p> : <p>Открыть группу</p>}
                 </button>
               </div>
-              <button className='group__delete' onClick={()=>handleDeleteGroup(group.id)}>
+              <button className='group__delete' onClick={()=>handleDelete(group._id)}>
               </button>
             </div>
 
 
             <div className={group.showChildren ? "list-children__wrapper list-children__wrapper-open"  : "list-children__wrapper "}>
-              {group.childrens.map((children, index)=>(
+              {group.users.map((user, index)=>(
+                
                 <div
                   className='children'
                   key={index}
                 >
-                {children.files === undefined 
+                {user.files === undefined 
                 ? <div 
                     className='children__image children__image-undefined' 
                   >
                   </div>
                 : <div 
                     className='children__image' 
-                    // style={{backgroundImage: `url(${URL.createObjectURL(children.files[0])})`}}
+                    style={{backgroundImage: `url(${URL.createObjectURL(user.files[0])})`}}
                   >
                   </div>
                 }
                 <div className='children__description'>
-                  <p>Имя: {children.name}</p>
-                  <p>Фамилия: {children.surname}</p>
-                  <p>Возраст: {children.age}</p>
-                  <p>Специальность: {children.speciality}</p>
+                  <p>Имя: {user.name}</p>
+                  <p>Фамилия: {user.surname}</p>
+                  <p>Возраст: {user.age}</p>
+                  <p>Специальность: {user.speciality}</p>
                 </div>
-                <button className='children__delete' onClick={()=>handleDeleteChildren(children.id, group.id)}>
+                <button className='children__delete' onClick={()=>handleDeleteChildren(user._id, group._id)}>
                 </button>
               </div>
               ))}
@@ -118,7 +153,6 @@ function ListGroup() {
     {isSow && (
       <BookingChildrenModal
       setIsShow={setIsShow}
-      setBooking={setBooking}
       Booking={Booking}
       />)}
     </>

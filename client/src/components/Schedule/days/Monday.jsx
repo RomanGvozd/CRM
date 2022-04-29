@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 import Hour from './Hour/Hour';
 
@@ -8,60 +9,35 @@ import './Day.scss';
 
 function Monday() {
 
-    const [hours, setHours] = useState([
-        {
-            name: '8:00',
-            booking: false
-        },
-        {
-            name: '9:00',
-            booking: false
-        },
-        {
-            name: '10:00',
-            booking: false
-        },
-        {
-            name: '11:00',
-            booking: false
-        },
-        {
-            name: '12:00',
-            booking: false
-        },
-        {
-            name: '13:00',
-            booking: false
-        },
-        {
-            name: '14:00',
-            booking: false
-        },
-        {
-            name: '15:00',
-            booking: false
-        },
-        {
-            name: '16:00',
-            booking: false
-        },
-        {
-            name: '17:00',
-            booking: false
-        },
-        {
-            name: '18:00',
-            booking: false
-        },
-        {
-            name: '19:00',
-            booking: false
-        },
-        {
-            name: '20:00',
-            booking: false
-        },
-    ]);
+  const [hours, setHours] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/days/monday')
+      .then(res => {
+        const data = res.data
+        setHours(data)
+    })
+  },[]);
+
+  const unbooking = (hourTitle)=> {
+    axios.put('/api/days/monday/onbooking', {hourTitle})
+
+    axios.get('/api/days/monday')
+    .then(res => {
+      const data = res.data
+      setHours(data)
+  })
+  }
+
+  const booking = (children, hourTitle)=> {
+    axios.put('/api/days/monday/booking', {children, hourTitle})
+
+    axios.get('/api/days/monday')
+    .then(res => {
+      const data = res.data
+      setHours(data)
+  })
+  }
 
   return (
     <div className='day'>
@@ -71,9 +47,11 @@ function Monday() {
         <div className="main__content">
 			{hours.map((hour, index) => (
 				<Hour
-                hour={hour}
-                key={index}
-                />			
+          hour={hour}
+          key={index}
+          unbooking={unbooking}
+          booking={booking}
+        />			
 			))}
 		</div>
     </div>

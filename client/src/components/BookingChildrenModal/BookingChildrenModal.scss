@@ -29,6 +29,7 @@
                 padding: 10px;
                 margin: 10px 0;
                 display: flex;
+                align-items: center;
                 
                 .children__image {
                     width: 100px;
@@ -53,7 +54,7 @@
 
                 .children__booking {
                     width: 150px;
-                    height: 30px;
+                    height: 40px;
                     background: linear-gradient(#7de07d, #5bb85b);
                     border: none;
                     color: #fff;

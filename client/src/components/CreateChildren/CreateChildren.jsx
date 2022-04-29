@@ -5,17 +5,18 @@ import ModalAlert from "../ModalAlert/ModalAlert";
 
 import Select from "../Select/Select";
 
-import { addUsers } from "../../common/store/ListChildren/actions/actions";
+import { addUser } from "../../common/store/ListChildren/actions/actions";
 
 import "./CreateChildren.scss";
 
-const DEFAULT_FOMR_STATE = { name: "", surname: "", age: "" };
+const DEFAULT_FOMR_STATE = { name: "", surname: "", age: "" , number: ""};
 
 function CreateChildren() {
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState("Рисование");
   const [images, setImages] = useState();
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const [formValues, setFormValues] = useState(DEFAULT_FOMR_STATE);
 
@@ -41,7 +42,7 @@ function CreateChildren() {
 
     data.append("image", images[0]);
 
-    dispatch(addUsers(data));
+    dispatch(addUser(data));
 
     setIsShow(true);
     setInterval(() => setIsShow(false), 1500);
@@ -88,6 +89,14 @@ function CreateChildren() {
             name="age"
             placeholder="Введите возраст"
             value={formValues.age}
+            onChange={handleChange}
+          />
+          <input
+            className="children__input"
+            type="number"
+            name="number"
+            placeholder="Введите номер телефона"
+            value={formValues.number}
             onChange={handleChange}
           />
           <Select

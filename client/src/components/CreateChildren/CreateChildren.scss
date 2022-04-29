@@ -12,6 +12,7 @@
         padding: 25px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         .children__form {
             display: flex;
@@ -36,7 +37,7 @@
             .children__button {
                 width: 200px;
                 height: 40px;
-                background: linear-gradient(#7de07d, #5bb85b);
+                background: linear-gradient(#a8faa8, #479e47);
                 border: none;
                 border-radius: 5px;
                 color: #fff;
@@ -44,7 +45,7 @@
                 margin: 10px 0;
                 
                 &:hover {
-                    background: linear-gradient(#67ce67, #3a963a);
+                    background: linear-gradient(#90ee90, #318631);
     
                 }
     
