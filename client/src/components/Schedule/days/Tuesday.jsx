@@ -1,68 +1,46 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
-import Hour from './Hour/Hour';
+import Hour from './Hour/Hour'
 
-import { days } from '../../../days';
+import { days } from '../../../days'
 
-import './Day.scss';
+import './Day.scss'
 
 function Tuesday() {
 
-  const [hours, setHours] = useState([
-    {
-        name: '8:00',
-        booking: false
-    },
-    {
-        name: '9:00',
-        booking: false
-    },
-    {
-        name: '10:00',
-        booking: false
-    },
-    {
-        name: '11:00',
-        booking: false
-    },
-    {
-        name: '12:00',
-        booking: false
-    },
-    {
-        name: '13:00',
-        booking: false
-    },
-    {
-        name: '14:00',
-        booking: false
-    },
-    {
-        name: '15:00',
-        booking: false
-    },
-    {
-        name: '16:00',
-        booking: false
-    },
-    {
-        name: '17:00',
-        booking: false
-    },
-    {
-        name: '18:00',
-        booking: false
-    },
-    {
-        name: '19:00',
-        booking: false
-    },
-    {
-        name: '20:00',
-        booking: false
-    },
-]);
+    const [hours, setHours] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [loadingHour, setLoadingHour] = useState(false)
+  
+  
+    const getHours = async () => {
+      setLoading(true)
+      await axios.get('/api/days/tuesday')
+        .then(res => {
+          const data = res.data
+          setHours(data)
+      })
+      setTimeout(() => {
+        setLoading(false)
+      }, 500);
+    }
+  
+    useEffect(() => {
+      getHours()
+    },[]);
+  
+    const booking = async (children, hourTitle)=> {
+      setLoading(true)
+      await axios.put('/api/days/tuesday/booking', {children, hourTitle})
+      getHours()
+    }
+  
+    const unbooking = async (hourTitle)=> {
+      setLoading(true)
+      await axios.put('/api/days/tuesday/onbooking', {hourTitle})
+      getHours()
+    }
 
 
   return (
@@ -70,14 +48,20 @@ function Tuesday() {
         <div className={days() === "Вторник" ? 'day__header-now day__header' : 'day__header'}>
             <p className='header__logo'>Вторник</p>
         </div>
-        <div className="main__content">
-			{hours.map((hour, index) => (
-				<Hour
-                hour={hour}
-                key={index}
-                />			
-			))}
-		</div>
+        {loading 
+        ?<div className='main__content-loading'>
+          <div className='main__content-loading-spiner'></div>
+        </div>
+        :<div className="main__content">
+          {hours.map((hour, index) => (
+            <Hour
+              hour={hour}
+              key={index}
+              unbooking={unbooking}
+              booking={booking}
+            />			
+          ))}
+        </div>}
     </div>
   );
 }

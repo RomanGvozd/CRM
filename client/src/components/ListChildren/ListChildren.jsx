@@ -1,11 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 
-import {deleteItem} from "../../common/store/ListChildren/actions/actions";
+import './ListChildren.scss'
 
-import './ListChildren.scss';
-
-function ListChildren() {
+function ListChildren({inputValue}) {
   const [childrens, setChildrens] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -13,26 +11,29 @@ function ListChildren() {
     setLoading(true)
     await axios.get('/api/users')
     .then(res => {
-        const data = res.data
-        setChildrens(data)
+        setChildrens(res.data)
     })
     setTimeout(() => {
       setLoading(false)
-    }, 1500);
+    }, 1500)
   }
 
   useEffect(() => {
     getUsers()
-  },[]);
+  },[])
 
   const handleDelete = async (id) => {
-    await  axios.delete(`/api/users/${id}`)
+    await axios.delete(`/api/users/${id}`)
       .then(res => {
         console.log(res)
         console.log(res.data)
       })
       getUsers()
   };
+
+  let filteredChildrens = childrens.filter(children=>{
+    return children.name.toLowerCase().includes(inputValue.toLowerCase())
+  })
 
   return (
   <>
@@ -52,7 +53,7 @@ function ListChildren() {
 
         : <main className='list-children'>
             <div className="list-children__wrapper">
-              {childrens.map((children, index) => (
+              {filteredChildrens.map((children, index) => (
                 <div
                   className='children'
                   key={children.id}

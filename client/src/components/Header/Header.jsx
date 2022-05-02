@@ -21,7 +21,8 @@ let n = today.getDay();
 
 today = day + '/' + month + '/' + year;
 
-function Header() {
+function Header({inputValue, setInputValue}) {
+
     return (
         <header className='header'>
             <div className='header__wrapper-logo'>
@@ -67,8 +68,15 @@ function Header() {
                         </Link>                     
                     </li>
                 </ul>
-                <input className='header__input' placeholder='Поиск'>
-                </input>
+                <Link to="/list-children">
+                    <input 
+                        className='header__input' 
+                        placeholder='Поиск'
+                        onChange={e=> setInputValue(e.target.value)}
+                        value={inputValue}
+                    >
+                    </input>
+                </Link>
             </nav>
         </header>
     );

@@ -1,68 +1,67 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 
-import ModalAlert from "../ModalAlert/ModalAlert";
+import ModalAlert from "../ModalAlert/ModalAlert"
 
-import Select from "../Select/Select";
+import Select from "../Select/Select"
 
-import { addUser } from "../../common/store/ListChildren/actions/actions";
+import { addUser } from "../../common/store/ListChildren/actions/actions"
 
-import "./CreateChildren.scss";
+import "./CreateChildren.scss"
 
-const DEFAULT_FOMR_STATE = { name: "", surname: "", age: "" , number: ""};
+const DEFAULT_FOMR_STATE = { name: "", surname: "", age: "" , number: ""}
 
 function CreateChildren() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [selected, setSelected] = useState("Рисование");
-  const [images, setImages] = useState();
-  const [buttonLoading, setButtonLoading] = useState(false);
+  const [selected, setSelected] = useState("Рисование")
+  const [images, setImages] = useState()
 
-  const [formValues, setFormValues] = useState(DEFAULT_FOMR_STATE);
+  const [formValues, setFormValues] = useState(DEFAULT_FOMR_STATE)
 
-  const [isShow, setIsShow] = useState(false);
-  const [drag, setDrag] = useState(false);
+  const [isShow, setIsShow] = useState(false)
+  const [drag, setDrag] = useState(false)
 
   const handleChange = ({ target }) => {
-    const { name, value } = target;
+    const { name, value } = target
     setFormValues((state) => ({
       ...state,
       [name]: value,
-    }));
-  };
-  const options = ["Танцы", "Лепка", "Вокал", "Гитара"];
+    }))
+  }
+  const options = ["Танцы", "Лепка", "Вокал", "Гитара"]
 
   const handleCreate = () => {
-    const values = { ...formValues, specialization: selected };
-    const data = new FormData();
+    const values = { ...formValues, specialization: selected }
+    const data = new FormData()
 
     Object.keys(values).forEach((key) => {
-      data.append(key, values[key]);
-    });
+      data.append(key, values[key])
+    })
 
-    data.append("image", images[0]);
+    data.append("image", images[0])
 
-    dispatch(addUser(data));
+    dispatch(addUser(data))
 
-    setIsShow(true);
-    setInterval(() => setIsShow(false), 1500);
-  };
+    setIsShow(true)
+    setInterval(() => setIsShow(false), 1500)
+  }
 
   const dragStartHandler = (e) => {
-    e.preventDefault();
-    setDrag(true);
-  };
+    e.preventDefault()
+    setDrag(true)
+  }
 
   const dragLeaveHandler = (e) => {
-    e.preventDefault();
-    setDrag(false);
-  };
+    e.preventDefault()
+    setDrag(false)
+  }
 
   const onDropHandler = (e) => {
-    e.preventDefault();
-    setImages(e.dataTransfer.files);
-    setDrag(false);
-  };
+    e.preventDefault()
+    setImages(e.dataTransfer.files)
+    setDrag(false)
+  }
 
   return (
     <main className="create-children">

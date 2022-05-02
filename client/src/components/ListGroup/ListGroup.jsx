@@ -102,7 +102,7 @@ function ListGroup() {
                   </div>
                   <div className='group__description'>
                     <h2>{group.name}</h2>
-                    <p>Категория: {group.category}</p>
+                    <p>Категория: {group.age} лет</p>
                     <p>Специальность: {group.specialization}</p>
                     <p>Количество детей: {group.users.length}</p>
                   </div>
@@ -141,7 +141,7 @@ function ListGroup() {
                       <p>Имя: {user.name}</p>
                       <p>Фамилия: {user.surname}</p>
                       <p>Возраст: {user.age}</p>
-                      <p>Специальность: {user.speciality}</p>
+                      <p>Специальность: {user.specialization}</p>
                     </div>
                     <button className='children__delete' onClick={()=>handleDeleteChildren(user._id, group._id)}>
                     </button>

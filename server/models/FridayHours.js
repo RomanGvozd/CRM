@@ -6,4 +6,4 @@ const schema = new Schema({
     user: {type: Object}
 });
 
-module.exports = model('MondayHours', schema);
+module.exports = model('FridayHours', schema);

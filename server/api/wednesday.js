@@ -2,13 +2,13 @@ const { Router } = require("express")
 const fileUpload = require("express-fileupload")
 const mongodb = require('mongodb')
 const router = Router()
-const MondayHours = require('../models/MondayHours')
+const WednesdayHours = require('../models/WednesdayHours')
 
 router.use(fileUpload())
 
 router.get('/', (req, res) => {
     try {
-        MondayHours.find({}, function(err, foundData) { 
+        WednesdayHours.find({}, function(err, foundData) { 
             if(err) {
                 console.log(err);
                 return res.status(500).send();
@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 router.put('/booking/', async (req, res)=> {
     try {
         const {children, hourTitle} = req.body
-        let hour = await MondayHours.findOne({title: hourTitle})
+        let hour = await WednesdayHours.findOne({title: hourTitle})
 
         hour.booking = true
         hour.user = {...children}
@@ -44,7 +44,7 @@ router.put('/booking/', async (req, res)=> {
 router.put('/onbooking/', async (req, res)=> {
     try {
         const {hourTitle} = req.body
-        let hour = await MondayHours.findOne({title: hourTitle})
+        let hour = await WednesdayHours.findOne({title: hourTitle})
 
         hour.booking = false
         hour.user = {}

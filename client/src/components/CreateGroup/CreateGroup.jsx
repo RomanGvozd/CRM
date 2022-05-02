@@ -15,16 +15,16 @@ function CreateGroup() {
 
   const [name, setName] = useState();
   const [specialization, setSpecialization] = useState("Рисование");
-  const [category, setCategory] = useState("4-6 лет");
+  const [age, setAge] = useState("4-6");
 
   const [isShow, setIsShow] = useState(false);
   const optionsSpecialization = ["Танцы", "Лепка"];
-  const optionsCategory = ["7-9 лет", '10-13 лет', '14-16 лет', '17-18 лет'];
+  const optionsCategory = ["7-9", '10-13', '14-16', '17-18', '18+'];
 
   const hadleChangeName = ({target}) => setName(target.value);
 
   const handleCreate = () => {
-    const values = { name: name, category: category, specialization: specialization };
+    const values = { name: name, age: age, specialization: specialization };
     const data = new FormData();
 
     Object.keys(values).forEach((key) => {
@@ -46,8 +46,8 @@ function CreateGroup() {
             placeholder='Введите название группы' 
             onChange={hadleChangeName}/>
           <Select
-            selected={category}
-            setSelected={setCategory}
+            selected={age}
+            setSelected={setAge}
             options={optionsCategory}
           />
           <Select

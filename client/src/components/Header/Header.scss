@@ -75,6 +75,7 @@
 
                     &:hover {
                         background-color: #353b41;
+                        
                     }
 
                 }
@@ -89,9 +90,12 @@
             background-color: #353a3f;
             border: none;
             padding: 0 10px;
+            color: #fff;
             
             &:focus {
                 outline: none;
+                background-color: #282c30;
+
             }
 
         }
