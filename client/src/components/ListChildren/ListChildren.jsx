@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 
+import ChildrenUpdateModal from '../ChildrenUpdateModal/ChildrenUpdateModal'
+
 import './ListChildren.scss'
 
 function ListChildren({inputValue}) {
   const [childrens, setChildrens] = useState([])
+  const [children, setChildren] = useState()
   const [loading, setLoading] = useState(false)
+  const [isShow, setIsShow] = useState(false)
 
   const getUsers = async () => {
     setLoading(true)
@@ -24,12 +28,13 @@ function ListChildren({inputValue}) {
 
   const handleDelete = async (id) => {
     await axios.delete(`/api/users/${id}`)
-      .then(res => {
-        console.log(res)
-        console.log(res.data)
-      })
-      getUsers()
-  };
+    getUsers()
+  }
+
+  const handleUpdate = (children) => {
+    setChildren(children)
+    setIsShow(true)
+  }
 
   let filteredChildrens = childrens.filter(children=>{
     return children.name.toLowerCase().includes(inputValue.toLowerCase())
@@ -77,14 +82,18 @@ function ListChildren({inputValue}) {
                     <p>Номер телефона: {children.number}</p>
                     <p>Специальность: {children.specialization}</p>
                   </div>
-                  <button className='children__delete' onClick={()=>handleDelete(children._id)}>
-                  </button>
+                  <div className='children__group-button'>
+                    <button className='children__delete' onClick={()=>handleDelete(children._id)}>
+                    </button>
+                    <button className='children__update' onClick={()=>handleUpdate(children)}>
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
           </main>}
       </>}
-
+      {isShow && <ChildrenUpdateModal children={children} setIsShow={setIsShow} getUsers={getUsers}/>}
   </>
   );
 }

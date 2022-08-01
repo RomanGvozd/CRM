@@ -1,85 +1,78 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import './Header.scss';
+import "./Header.scss";
 const days = [
-    'Воскресенье',
-    'Понедельник',
-    'Вторник',
-    'Среда',
-    'Четверг',
-    'Пятница',
-    'Суббота'
-  ];
+  "Воскресенье",
+  "Понедельник",
+  "Вторник",
+  "Среда",
+  "Четверг",
+  "Пятница",
+  "Суббота",
+];
 
 let today = new Date();
-let day = String(today.getDate()).padStart(2, '0');
-let month = String(today.getMonth() + 1).padStart(2, '0'); 
+let day = String(today.getDate()).padStart(2, "0");
+let month = String(today.getMonth() + 1).padStart(2, "0");
 let year = today.getFullYear();
 
 let n = today.getDay();
 
-today = day + '/' + month + '/' + year;
+today = day + "/" + month + "/" + year;
 
-function Header({inputValue, setInputValue}) {
+function Header({ inputValue, setInputValue }) {
+  const navigate = useNavigate();
 
-    return (
-        <header className='header'>
-            <div className='header__wrapper-logo'>
-                <h1 className='header__logo'>CRM</h1>
-                <p className='header__day'>{`${days[n]} ${day}`}</p>
-            </div>
+  const handleFocus = () => {
+    navigate("list-children");
+  };
 
-            <nav className='header__nav'>
-                <ul className='nav__list'>
-                    <li className='nav__item'>
-                        <Link to="/group">
-                            <button className='button-create'>
-                                + Создать группу
-                            </button>
-                        </Link>
-                    </li>
-                    <li className='nav__item'>
-                        <Link to="/children">
-                            <button className='button-create'>
-                                + Создать ребенка
-                            </button>
-                        </Link>
-                    </li>
-                    <li className='nav__item'> 
-                        <Link to="/">
-                            <button className='button-list'>
-                                Расписание
-                            </button>
-                        </Link>                     
-                    </li>
-                    <li className='nav__item'> 
-                        <Link to="/list-group">
-                            <button className='button-list'>
-                                Список групп
-                            </button>
-                        </Link>                     
-                    </li>
-                    <li className='nav__item'> 
-                        <Link to="/list-children">
-                            <button className='button-list'>
-                                Список детей
-                            </button>
-                        </Link>                     
-                    </li>
-                </ul>
-                <Link to="/list-children">
-                    <input 
-                        className='header__input' 
-                        placeholder='Поиск'
-                        onChange={e=> setInputValue(e.target.value)}
-                        value={inputValue}
-                    >
-                    </input>
-                </Link>
-            </nav>
-        </header>
-    );
+  return (
+    <header className="header">
+      <div className="header__wrapper-logo">
+        <h1 className="header__logo">CRM</h1>
+        <p className="header__day">{`${days[n]} ${day}`}</p>
+      </div>
+
+      <nav className="header__nav">
+        <ul className="nav__list">
+          <li className="nav__item">
+            <Link to="/group">
+              <button className="button-create">+ Создать группу</button>
+            </Link>
+          </li>
+          <li className="nav__item">
+            <Link to="/children">
+              <button className="button-create">+ Создать ребенка</button>
+            </Link>
+          </li>
+          <li className="nav__item">
+            <Link to="/">
+              <button className="button-list">Расписание</button>
+            </Link>
+          </li>
+          <li className="nav__item">
+            <Link to="/list-group">
+              <button className="button-list">Список групп</button>
+            </Link>
+          </li>
+          <li className="nav__item">
+            <Link to="/list-children">
+              <button className="button-list">Список детей</button>
+            </Link>
+          </li>
+        </ul>
+        <input
+          className="header__input"
+          placeholder="Поиск"
+          onChange={(e) => setInputValue(e.target.value)}
+          value={inputValue}
+          onFocus={handleFocus}
+        />
+      </nav>
+    </header>
+  );
 }
 
 export default Header;

@@ -1,0 +1,150 @@
+.background-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    overflow: auto;
+
+    .modal-loading {
+        width: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .modal-loading-spiner{
+            width: 35px;
+            height: 35px;
+            background-image: url(./sprites/loading.png);
+            background-size: cover;
+            animation-name: loading;
+            animation-iteration-count: infinite;
+            animation-duration: 1s;
+
+            @keyframes loading {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+
+            }
+
+        }
+
+    }
+
+    .modal-update {
+        width: auto;
+        height: auto;
+        padding: 30px 50px 50px;
+        border: 1px solid #c9c9c9;
+        background: linear-gradient(#fff, #d7d7d7);
+        position: relative;
+        overflow-y: scroll;
+
+        .modal__delete {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            background-image: url(./sprites/Delete.svg);
+            background-size: cover;
+            border: none;
+            background-color: #fff;
+            opacity: 0.3;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+
+            }
+
+        }
+
+        .modal__children {
+            width: 700px;
+            height: auto;
+            background: #fff;
+            border: 1px solid #c9c9c9;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            display: flex;
+
+            .modal__children-wrapper {
+                width: 30%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .modal__children__image {
+                    width: 100%;
+                    height: 200px;
+                    border: 1px solid #c9c9c9;
+                    background-size: cover;
+    
+                }
+    
+                .modal__children__image-undefined {
+                    background-image: url(./sprites/ChildrenImage.svg);
+                }
+
+                .modal__children__button {
+                    width: 100%;
+                    height: 40px;
+                    background: linear-gradient(#a8faa8, #479e47);
+                    border: none;
+                    border-radius: 5px;
+                    color: #fff;
+                    cursor: pointer;
+                    margin-top: 10px;
+                    
+                    &:hover {
+                        background: linear-gradient(#90ee90, #318631);
+        
+                    }
+
+                }
+
+            }
+
+            .modal__children__description {
+                width: 70%;
+                height: auto;
+                margin-left: 10px;
+                border: 1px solid #c9c9c9;
+                padding: 10px;
+
+                .modal__children__input {
+                    width: 400px;
+                    height: 40px;
+                    background: #fff;
+                    border: 1px solid #c9c9c9;
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin: 10px 0;
+        
+                    &:focus {
+                        outline: none;
+        
+                    }
+
+                }
+
+            }
+            
+        }
+
+    }
+
+}

@@ -45,15 +45,36 @@ router.get('/', async(req, res)=> {
       res.send({message: "Server error"})
   }
 
-});
+})
+
+router.put('/', async (req, res)=> {
+  try {
+    const {children, formValues, selected} = req.body
+    const user = await User.findOne({_id: children._id})
+
+    user.name = formValues.name
+    user.surname = formValues.surname
+    user.age = formValues.age
+    user.number = formValues.number
+    user.specialization = selected
+
+    await user.save()
+    return res.status(200).send({message: "User added to group"})
+
+  } catch (e) {
+    console.log(e)
+    res.send({message: "Server error"})
+  }
+
+})
 
 router.delete('/:id', async (req, res)=> {
-  const id = req.params.id;
+  const id = req.params.id
 
   User.deleteOne({ _id: id }, function (err, results) {
-  });
+  })
 
   res.json({ success: id })
-});
+})
 
-module.exports = router;
+module.exports = router

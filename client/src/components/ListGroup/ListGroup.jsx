@@ -121,7 +121,6 @@ function ListGroup() {
 
                 <div className={group.showChildren ? "list-children__wrapper list-children__wrapper-open"  : "list-children__wrapper "}>
                   {group.users.map((user, index)=>(
-                    
                     <div
                       className='children'
                       key={index}
@@ -148,7 +147,6 @@ function ListGroup() {
                   </div>
                   ))}
                 </div>
-
 
               </div>
             ))}

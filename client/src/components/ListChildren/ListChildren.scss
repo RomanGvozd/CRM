@@ -124,15 +124,48 @@
 
             }
 
-            .children__delete {
-                width: 20px;
-                height: 20px;
-                margin-left: 10px;
-                background-image: url(./images/ChildrenDeleteImage.svg);
-                background-size: cover;
-                border: none;
-                background-color: #fff;
-                cursor: pointer;
+            .children__group-button {
+                width: 5%;
+                height: 120px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .children__delete {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 10px;
+                    background-image: url(./sprites/Delete.svg);
+                    background-size: cover;
+                    border: none;
+                    background-color: #fff;
+                    opacity: 0.3;
+                    cursor: pointer;
+    
+                    &:hover {
+                        opacity: 0.7;
+    
+                    }
+    
+                }
+
+                .children__update {
+                    width: 20px;
+                    height: 20px;
+                    margin-left: 10px;
+                    background-image: url(./sprites/Update.svg);
+                    background-size: cover;
+                    border: none;
+                    background-color: #fff;
+                    opacity: 0.3;
+                    cursor: pointer;
+    
+                    &:hover {
+                        opacity: 0.7;
+    
+                    }
+
+                }
 
             }
 

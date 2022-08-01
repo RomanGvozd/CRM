@@ -15,6 +15,8 @@ function CreateChildren() {
   const dispatch = useDispatch()
 
   const [selected, setSelected] = useState("Рисование")
+  const options = ["Танцы", "Лепка", "Вокал", "Гитара"]
+  
   const [images, setImages] = useState()
 
   const [formValues, setFormValues] = useState(DEFAULT_FOMR_STATE)
@@ -29,7 +31,6 @@ function CreateChildren() {
       [name]: value,
     }))
   }
-  const options = ["Танцы", "Лепка", "Вокал", "Гитара"]
 
   const handleCreate = () => {
     const values = { ...formValues, specialization: selected }
